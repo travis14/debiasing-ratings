@@ -11,6 +11,12 @@ class RatingsGraph:
 		if ground_truth_ratings is not None:
 			self.ground_truth_ratings = ground_truth_ratings
 
+		self.num_users = ratings_graph.shape[0]
+		self.num_entities = ratings_graph.shape[1]
+
+	def get_entity_sim(self):
+		return self.entity_sim
+
 	def get_graph_shape(self):
 		return self.ratings_graph.shape
 
