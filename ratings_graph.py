@@ -6,9 +6,9 @@ class RatingsGraph:
 	def __init__(self, ratings_graph, ratings, entity_sim=None, ground_truth_ratings=None):
 		self.ratings_graph = ratings_graph # rows user, cols entities
 		self.ratings = ratings
-		if entity_sim:
+		if entity_sim is not None:
 			self.entity_sim = entity_sim
-		if ground_truth_ratings:
+		if ground_truth_ratings is not None:
 			self.ground_truth_ratings = ground_truth_ratings
 
 	def get_graph_shape(self):

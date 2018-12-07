@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-EPSILON = 0.000001
+EPSILON = 0.001
 
 def single_iteration(ratings_graph, biases, true_ratings, alpha):
 	# Update Ratings
@@ -26,6 +26,7 @@ def single_iteration(ratings_graph, biases, true_ratings, alpha):
 
 def debias_ratings_baseline(ratings_graph, alpha, max_iters):
 	num_users, num_entities = ratings_graph.get_graph_shape()
+	ground_truth_ratings = ratings_graph.get_ground_truth_ratings()
 	true_ratings = []
 	biases = [np.random.rand(num_users)]
 	errors = []
@@ -38,7 +39,10 @@ def debias_ratings_baseline(ratings_graph, alpha, max_iters):
 		converged, next_true_ratings, next_biases = iter_out
 		true_ratings.append(next_true_ratings)
 		biases.append(next_biases)
-		print(converged)
+
+		if ground_truth_ratings is not None:
+			errors.append(np.sqrt(np.mean((next_true_ratings - ground_truth_ratings)**2)))
+
 		num_iters += 1
 
 	return biases, true_ratings, errors
